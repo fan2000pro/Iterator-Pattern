@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Book
 {
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public int Year { get; set; }
+    public string Title { get; set; } 
+    public string Author { get; set; } 
+    public int Year { get; set; } 
 
     public Book(string title, string author, int year)
     {
@@ -17,13 +17,14 @@ public class Book
 
     public override string ToString()
     {
-        return $"{Title} by {Author}, {Year}";
+        return $"{Title} автор {Author}, {Year}"; 
     }
 }
 
+
 public class LibraryIterator : IEnumerator<Book>
 {
-    private readonly Book[] _books;
+    private readonly Book[] _books; 
     private int _position = -1;
 
     public LibraryIterator(Book[] books)
@@ -31,14 +32,14 @@ public class LibraryIterator : IEnumerator<Book>
         _books = books;
     }
 
-    public Book Current => _books[_position];
+    public Book Current => _books[_position]; 
 
-    object IEnumerator.Current => Current;
+    object IEnumerator.Current => Current; 
 
     public bool MoveNext()
     {
         _position++;
-        return _position < _books.Length;
+        return _position < _books.Length; 
     }
 
     public void Reset()
@@ -48,28 +49,28 @@ public class LibraryIterator : IEnumerator<Book>
 
     public void Dispose()
     {
-        
+
     }
 }
 
 public class Library : IEnumerable<Book>
 {
-    private Book[] _books = new Book[0];
+    private Book[] _books = new Book[0]; 
 
     public void AddBook(Book book)
     {
-        Array.Resize(ref _books, _books.Length + 1);
+        Array.Resize(ref _books, _books.Length + 1); 
         _books[^1] = book;
     }
 
     public IEnumerator<Book> GetEnumerator()
     {
-        return new LibraryIterator(_books);
+        return new LibraryIterator(_books); 
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return GetEnumerator();
+        return GetEnumerator(); 
     }
 }
 
@@ -78,12 +79,12 @@ public class Program
     public static void Main()
     {
         Library library = new Library();
+        
+        library.AddBook(new Book("1984", "Джордж Оруэлл", 1949)); 
+        library.AddBook(new Book("Убить пересмешника", "Харпер Ли", 1960));
+        library.AddBook(new Book("Великий Гэтсби", "Ф. Скотт Фицджеральд", 1925));
 
-        library.AddBook(new Book("1984", "George Orwell", 1949));
-        library.AddBook(new Book("To Kill a Mockingbird", "Harper Lee", 1960));
-        library.AddBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925));
-
-        Console.WriteLine("Books in the library:");
+        Console.WriteLine("Книги в библиотеке:");
         foreach (var book in library)
         {
             Console.WriteLine(book);
